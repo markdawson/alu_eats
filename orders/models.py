@@ -8,7 +8,7 @@ class OrderItem(models.Model):
 	price = models.PositiveIntegerField()
 	quantity = models.PositiveIntegerField()
 	date = models.DateField()
-	comments = models.CharField(verbose_name='Comments for vendor', max_length=200, default='')
+	comments = models.CharField(verbose_name='Comments for vendor', max_length=200, default='', null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 

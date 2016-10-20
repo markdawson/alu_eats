@@ -9,6 +9,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django import forms
 import datetime
+from datetime import date
 from django.contrib import messages
 
 @require_POST
@@ -41,17 +42,21 @@ def order_remove_all_staff_list(request, order_id):
 	return redirect('orders:all_staff_orders')
 
 def upcoming_orders(request):
-	now = datetime.datetime.now()
+	today = date.today()
+	if datetime.datetime.now().hour >= 16:
+		today = today + datetime.timedelta(days=1)
 	orders = OrderItem.objects.filter(user=request.user,
-								date__gte=now).order_by('date')
+								date__gt=today).order_by('date')
 	return render(request, 'orders/orders_list.html',
 				 { "orders" : orders,
 					"title_message": 'Upcoming Orders'})
 
 def past_orders(request):
-	now = datetime.datetime.now()
+	today = date.today()
+	if datetime.datetime.now().hour >= 16:
+		today = today + datetime.timedelta(days=1)
 	orders = OrderItem.objects.filter(user=request.user,
-								date__lt=now).order_by('-date')[:15]
+								date__lte=today).order_by('-date')[:15]
 	return render(request, 'orders/orders_list.html',
 				 { "orders" : orders,
 					"title_message": 'Past Orders'})
