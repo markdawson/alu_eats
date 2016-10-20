@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 from menu.models import MenuItem
 from .forms import OrderAddMenuItemForm, FilterDateForm
@@ -55,6 +56,7 @@ def past_orders(request):
 				 { "orders" : orders,
 					"title_message": 'Past Orders'})
 
+@staff_member_required
 def all_staff_orders(request):
 	orders = OrderItem.objects.all()
 	if request.method =='POST':

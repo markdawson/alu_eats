@@ -14,7 +14,7 @@ class OrderAddMenuItemForm(forms.Form):
 
     def clean_date(self):
         cd = self.cleaned_data
-        if cd['date'] < datetime.date.today():
+        if cd['date'] <= datetime.date.today():
             raise forms.ValidationError("The date cannot be in the past.")
         # Cut off orders after 2:30pm
         if (cd['date'] == datetime.date.today() and
