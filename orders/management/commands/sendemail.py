@@ -9,12 +9,12 @@ import datetime
 class Command(BaseCommand):
 
 	def handle(self, *args, **options):
-		today = datetime.date.today()
+		tomorrow = datetime.date.today() + datetime.timedelta(1)
 		# add subject
-		subject = 'Orders for {}'.format(today)
+		subject = 'Orders for {}'.format(tomorrow)
 
 		# add objects
-		orders = OrderItem.objects.filter(date=today)
+		orders = OrderItem.objects.filter(date=tomorrow)
 		# render body
 		template = get_template('orders/email_vendors.html')
 		context = Context({'orders': orders})
