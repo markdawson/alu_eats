@@ -21,6 +21,8 @@
 		</ul>
 	</div>
 	<div id="main" class="product-list">
+    <p>Hello there! Orders can be placed until 4pm each weekday. The system will not accept orders for the next day
+    after 4pm. If you're order goes through, expect to be eating it for lunch tomorrow :D</p>
 			<h1>{% if category %}{{ category.name }}{% else %}Full Menu{% endif %}</h1>
 			{% for menu_item in menu_items %}
 				<div class="item">
