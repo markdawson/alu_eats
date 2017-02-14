@@ -12,7 +12,7 @@
 		<h1>{{ menu_item.name }}</h1>
 		<h2>RS {{ menu_item.price }}</h2>
 
-        <h3>{{ menu_item.description }}</h3>
+        {% if menu_item.description %}<h3>{{ menu_item.description }}</h3>{% endif %}
 
 {#		{% if overall_rating %}#}
 {#			<tr>#}
