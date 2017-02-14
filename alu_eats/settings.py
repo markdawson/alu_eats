@@ -28,7 +28,9 @@ def get_env_variable(var_name):
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_variable('SECRET_KEY')
+DEV_SECRET_KEY = 'b4&e28%^^1#4t$1b&m9xryx!(($+qn#^6(tx0g!dqi2q(1v#u#'
+SECRET_KEY = os.environ.get('SECRET_KEY', DEV_SECRET_KEY)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -164,12 +166,13 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['alueducation.com']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_env_variable('GOOGLE_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_env_variable('GOOGLE_SECRET')
+if SECRET_KEY is not DEV_SECRET_KEY:
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_env_variable('GOOGLE_KEY')
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_env_variable('GOOGLE_SECRET')
 
-# Email Hosting
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+    # Email Hosting
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True

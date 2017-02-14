@@ -11,7 +11,7 @@ from django.utils import timezone
 @login_required
 def menu_list(request, category_slug=None):
 	category = None
-	categories = Category.objects.all()
+	categories = Category.objects.filter(available=True)
 	menu_items = MenuItem.objects.filter(available=True)
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
